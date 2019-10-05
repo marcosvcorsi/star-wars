@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class StarShip implements Serializable {
 
     private String name;
@@ -55,4 +50,148 @@ public class StarShip implements Serializable {
     private String edited;
 
     private String url;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getCostInCredits() {
+        return costInCredits;
+    }
+
+    public void setCostInCredits(String costInCredits) {
+        this.costInCredits = costInCredits;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public String getMaxAtmospheringSpeed() {
+        return maxAtmospheringSpeed;
+    }
+
+    public void setMaxAtmospheringSpeed(String maxAtmospheringSpeed) {
+        this.maxAtmospheringSpeed = maxAtmospheringSpeed;
+    }
+
+    public String getCrew() {
+        return crew;
+    }
+
+    public void setCrew(String crew) {
+        this.crew = crew;
+    }
+
+    public String getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(String passengers) {
+        this.passengers = passengers;
+    }
+
+    public String getCargoCapacity() {
+        return cargoCapacity;
+    }
+
+    public void setCargoCapacity(String cargoCapacity) {
+        this.cargoCapacity = cargoCapacity;
+    }
+
+    public String getConsumables() {
+        return consumables;
+    }
+
+    public void setConsumables(String consumables) {
+        this.consumables = consumables;
+    }
+
+    public String getHyperDriveRating() {
+        return hyperDriveRating;
+    }
+
+    public void setHyperDriveRating(String hyperDriveRating) {
+        this.hyperDriveRating = hyperDriveRating;
+    }
+
+    public String getMglt() {
+        return mglt;
+    }
+
+    public void setMglt(String mglt) {
+        this.mglt = mglt;
+    }
+
+    public String getStarShipClass() {
+        return starShipClass;
+    }
+
+    public void setStarShipClass(String starShipClass) {
+        this.starShipClass = starShipClass;
+    }
+
+    public List<String> getPilotsUrl() {
+        return pilotsUrl;
+    }
+
+    public void setPilotsUrl(List<String> pilotsUrl) {
+        this.pilotsUrl = pilotsUrl;
+    }
+
+    public List<String> getFilmsUrl() {
+        return filmsUrl;
+    }
+
+    public void setFilmsUrl(List<String> filmsUrl) {
+        this.filmsUrl = filmsUrl;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getEdited() {
+        return edited;
+    }
+
+    public void setEdited(String edited) {
+        this.edited = edited;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

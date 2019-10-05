@@ -32,6 +32,14 @@ public class FavoriteRepository {
         return id;
     }
 
+    public void saveOrUpdate(Favorite favorite){
+        if(favorite.getId() != null){
+            update(favorite);
+        } else {
+            save(favorite);
+        }
+    }
+
     public Favorite findByUrlAndType(String url, FavoriteType type){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 

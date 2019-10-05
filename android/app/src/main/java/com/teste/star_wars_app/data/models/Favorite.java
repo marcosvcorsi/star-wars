@@ -1,10 +1,5 @@
 package com.teste.star_wars_app.data.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Favorite {
 
     private Long id;
@@ -17,4 +12,43 @@ public class Favorite {
 
     private Boolean status;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public FavoriteType getType() {
+        return type;
+    }
+
+    public void setType(FavoriteType type) {
+        this.type = type;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }
