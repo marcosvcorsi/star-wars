@@ -1,6 +1,9 @@
 package com.teste.star_wars_app.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,25 +18,41 @@ public class StarShip implements Serializable {
 
     private String manufacturer;
 
-    private Long costInCredits;
+    @SerializedName("cost_in_credits")
+    private String costInCredits;
 
-    private Integer length;
+    private String length;
 
+    @SerializedName("max_atmosphering_speed")
     private String maxAtmospheringSpeed;
 
-    private Integer crew;
+    private String crew;
     
-    private Integer passenger;
+    private String passengers;
 
-    private Long cargoCapacity;
+    @SerializedName("cargo_capacity")
+    private String cargoCapacity;
 
     private String consumables;
 
+    @SerializedName("hyperdrive_rating")
     private String hyperDriveRating;
 
-    private Integer mglt;
+    @SerializedName("MGLT")
+    private String mglt;
 
+    @SerializedName("starship_class")
     private String starShipClass;
 
-    private String pilots;
+    @SerializedName("pilots")
+    private List<String> pilotsUrl;
+
+    @SerializedName("films")
+    private List<String> filmsUrl;
+
+    private String created;
+
+    private String edited;
+
+    private String url;
 }

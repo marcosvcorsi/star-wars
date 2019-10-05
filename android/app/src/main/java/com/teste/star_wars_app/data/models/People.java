@@ -3,6 +3,7 @@ package com.teste.star_wars_app.data.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +14,9 @@ public class People implements Serializable {
 
     private String name;
 
-    private Integer height;
+    private String height;
 
-    private Integer mass;
+    private String mass;
 
     @SerializedName("hair_color")
     private String hairColor;
@@ -31,8 +32,21 @@ public class People implements Serializable {
 
     private String gender;
 
-    @SerializedName("home_world")
-    private String homeWorld;
+    @SerializedName("homeworld")
+    private String homeWorldUrl;
 
-    // TO-DO more
+    @SerializedName("films")
+    private List<String> filmsUrl;
+
+    @SerializedName("vehicles")
+    private List<String> vehiclesUrl;
+
+    @SerializedName("starships")
+    private List<String> starShipsUrl;
+
+    private String created;
+
+    private String edited;
+
+    private String url;
 }

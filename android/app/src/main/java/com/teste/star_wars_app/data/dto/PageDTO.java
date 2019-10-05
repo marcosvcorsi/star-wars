@@ -1,9 +1,7 @@
 package com.teste.star_wars_app.data.dto;
 
-import android.text.TextUtils;
-
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +16,6 @@ public class PageDTO<T> implements Serializable {
 
     private String previous;
 
-    private ArrayList<T> results;
+    private List<T> results;
 
-    public boolean hasMore() {
-        return !TextUtils.isEmpty(next);
-    }
 }
