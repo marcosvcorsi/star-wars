@@ -21,7 +21,6 @@ public class StarShipListAdapter extends FavoriteAdapter {
         super(context, FavoriteType.STARSHIPS);
 
         this.dataSource = starShipList;
-        this.loadFavoriteList();
     }
 
     @Override

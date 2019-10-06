@@ -41,6 +41,11 @@ public class PlanetsFragment extends Fragment {
     private boolean isLoading = false;
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -63,7 +68,7 @@ public class PlanetsFragment extends Fragment {
                     if(!isLoading && pageDTO.hasNext() )
                     {
                         currentPage++;
-                        loadData();
+                        //loadData();
                     }
                 }
             }
@@ -72,13 +77,12 @@ public class PlanetsFragment extends Fragment {
         this.spinner = getView().findViewById(R.id.progressBar);
 
         this.planetService = (PlanetService) SWApi.createService(PlanetService.class);
-        this.loadData();
+        // this.loadData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_planets, container, false);
     }
 

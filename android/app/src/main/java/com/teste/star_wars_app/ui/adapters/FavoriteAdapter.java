@@ -29,6 +29,7 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         this.favoriteType = type;
 
         this.favoriteRepository = new FavoriteRepository(context);
+        this.loadFavoriteList();
     }
 
     protected void loadFavoriteList(){
@@ -37,12 +38,9 @@ public abstract class FavoriteAdapter extends BaseAdapter {
 
     protected void onClickFav(Favorite favorite, ImageView imgView){
         favorite.setStatus(!favorite.getStatus());
-
-        favoriteRepository.saveOrUpdate(favorite);
-
         setImageViewByStatus(imgView, favorite.getStatus());
 
-        this.loadFavoriteList();
+        this.saveOrUpdate(favorite);
     }
 
     protected void setImageViewByStatus(ImageView imageView, Boolean status){
@@ -66,10 +64,19 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         favorite.setComment(comment);
         txtComments.setText(comment);
 
-        favoriteRepository.saveOrUpdate(favorite);
+        this.saveOrUpdate(favorite);
 
         editText.setText("");
-        this.loadFavoriteList();
+    }
+
+    private void saveOrUpdate(Favorite favorite){
+        favoriteRepository.saveOrUpdate(favorite);
+
+        int index = favoriteList.indexOf(favorite);
+
+        if(index == -1){
+            favoriteList.add(favorite);
+        }
     }
 
     protected Favorite getFavorite(String url){

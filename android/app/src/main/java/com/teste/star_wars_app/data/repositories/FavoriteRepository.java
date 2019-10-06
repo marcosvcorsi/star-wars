@@ -40,29 +40,6 @@ public class FavoriteRepository {
         }
     }
 
-    public Favorite findByUrlAndType(String url, FavoriteType type){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM favorite WHERE url = ? and type = ?",
-                new String[]{url, type.toString()});
-
-        Favorite favorite = null;
-
-        if(cursor != null & cursor.getCount() > 0){
-            cursor.moveToFirst();
-
-            favorite = createFavorite(cursor);
-
-            cursor.close();
-
-
-        }
-
-        db.close();
-
-        return favorite;
-    }
-
     public void update(Favorite favorite){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 

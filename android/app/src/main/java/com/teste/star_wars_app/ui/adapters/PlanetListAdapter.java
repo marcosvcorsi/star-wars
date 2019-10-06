@@ -21,7 +21,6 @@ public class PlanetListAdapter extends FavoriteAdapter {
         super(context, FavoriteType.PLANETS);
 
         this.dataSource = planetList;
-        this.loadFavoriteList();
     }
 
     @Override

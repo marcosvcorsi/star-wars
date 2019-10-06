@@ -21,8 +21,6 @@ public class PeopleListAdapter extends FavoriteAdapter {
         super(context, FavoriteType.PEOPLE);
 
         this.dataSource = peopleList;
-
-        this.loadFavoriteList();
     }
 
     @Override

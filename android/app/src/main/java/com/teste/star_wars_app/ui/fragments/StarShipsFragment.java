@@ -63,7 +63,7 @@ public class StarShipsFragment extends Fragment {
                     if(!isLoading && pageDTO.hasNext() )
                     {
                         currentPage++;
-                        loadData();
+                        //loadData();
                     }
                 }
             }
@@ -72,7 +72,7 @@ public class StarShipsFragment extends Fragment {
         this.spinner = getView().findViewById(R.id.progressBar);
 
         this.starShipService = (StarShipService) SWApi.createService(StarShipService.class);
-        this.loadData();
+        //this.loadData();
     }
 
     @Override
