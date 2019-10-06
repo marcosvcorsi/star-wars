@@ -1,0 +1,58 @@
+[
+    {
+        "comment": "",
+        "id": "1",
+        "status": "1",
+        "type": "0",
+        "url": "https://swapi.co/api/people/1/"
+    },
+    {
+        "comment": "the best",
+        "id": "2",
+        "status": "1",
+        "type": "0",
+        "url": "https://swapi.co/api/people/2/"
+    },
+    {
+        "comment": "quiet",
+        "id": "3",
+        "status": "1",
+        "type": "0",
+        "url": "https://swapi.co/api/people/3/"
+    },
+    {
+        "comment": "",
+        "id": "4",
+        "status": "1",
+        "type": "0",
+        "url": "https://swapi.co/api/people/4/"
+    },
+    {
+        "comment": "",
+        "id": "5",
+        "status": "1",
+        "type": "1",
+        "url": "https://swapi.co/api/planets/2/"
+    },
+    {
+        "comment": "nice place",
+        "id": "6",
+        "status": "1",
+        "type": "1",
+        "url": "https://swapi.co/api/planets/8/"
+    },
+    {
+        "comment": "be careful",
+        "id": "7",
+        "status": "1",
+        "type": "2",
+        "url": "https://swapi.co/api/starships/9/"
+    },
+    {
+        "comment": "epic",
+        "id": "8",
+        "status": "1",
+        "type": "2",
+        "url": "https://swapi.co/api/starships/10/"
+    }
+]
