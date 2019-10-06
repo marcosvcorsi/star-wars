@@ -32,12 +32,15 @@ public class FavoriteRepository {
         return id;
     }
 
-    public void saveOrUpdate(Favorite favorite){
+    public Favorite saveOrUpdate(Favorite favorite){
         if(favorite.getId() != null){
             update(favorite);
         } else {
-            save(favorite);
+            Long id = save(favorite);
+            favorite.setId(id);
         }
+
+        return favorite;
     }
 
     public void update(Favorite favorite){

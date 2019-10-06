@@ -84,7 +84,7 @@ public abstract class FavoriteAdapter extends BaseAdapter {
     }
 
     private void saveOrUpdate(Favorite favorite){
-        favoriteRepository.saveOrUpdate(favorite);
+        favorite = favoriteRepository.saveOrUpdate(favorite);
 
         int index = favoriteList.indexOf(favorite);
 
