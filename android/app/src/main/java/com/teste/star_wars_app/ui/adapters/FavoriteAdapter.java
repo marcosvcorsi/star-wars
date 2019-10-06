@@ -3,13 +3,17 @@ package com.teste.star_wars_app.ui.adapters;
 import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.teste.star_wars_app.R;
 import com.teste.star_wars_app.data.models.Favorite;
 import com.teste.star_wars_app.data.models.FavoriteType;
 import com.teste.star_wars_app.data.repositories.FavoriteRepository;
+import com.teste.star_wars_app.utils.FavoriteUtils;
 
 import java.util.List;
 
@@ -49,7 +53,7 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         }
     }
 
-    private void hideOrShowDetails(final TableLayout tabDetails){
+    protected void hideOrShowDetails(final TableLayout tabDetails){
         if(tabDetails.getVisibility() == View.GONE){
             tabDetails.setVisibility(View.VISIBLE);
         } else {
@@ -57,4 +61,56 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         }
     }
 
+    protected void onClickSend(Favorite favorite, EditText editText, TextView txtComments){
+        String comment = editText.getText().toString();
+        favorite.setComment(comment);
+        txtComments.setText(comment);
+
+        favoriteRepository.saveOrUpdate(favorite);
+
+        editText.setText("");
+        this.loadFavoriteList();
+    }
+
+    protected Favorite getFavorite(String url){
+        Favorite favorite = FavoriteUtils.getFavoriteByUrl(favoriteList, url);
+
+        if(favorite == null){
+            favorite = new Favorite();
+
+            favorite.setUrl(url);
+            favorite.setStatus(false);
+            favorite.setType(favoriteType);
+        }
+
+        return favorite;
+    }
+
+    protected void setExpandableAdapter(View view){
+        final TableLayout tabDetails = view.findViewById(R.id.tabDetails);
+        tabDetails.setVisibility(View.GONE);
+        view.setOnClickListener((View v) -> hideOrShowDetails(tabDetails));
+    }
+
+    protected void setFavoriteEvents(View view, final Favorite favorite){
+        TextView txtComments = view.findViewById(R.id.txtComments);
+
+        if(favorite.getComment() != null && !favorite.getComment().isEmpty()){
+            txtComments.setText(favorite.getComment());
+        }
+
+        final EditText editComments = view.findViewById(R.id.editComments);
+
+        final Button btnSend = view.findViewById(R.id.btnSend);
+        btnSend.setOnClickListener((View v) -> {
+            onClickSend(favorite, editComments, txtComments);
+        });
+
+        final ImageView imgFav = view.findViewById(R.id.imgFav);
+        imgFav.setOnClickListener((View v) -> {
+            onClickFav(favorite, imgFav);
+        });
+
+        setImageViewByStatus(imgFav, favorite.getStatus());
+    }
 }

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,11 +23,10 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
-        adapter.add( new PeopleFragment() , "People");
-        adapter.add( new PlanetsFragment() , "Planets");
-        adapter.add( new StarShipsFragment() , "Starships");
+        adapter.add( new PeopleFragment() , getResources().getString(R.string.tab_people));
+        adapter.add( new PlanetsFragment() , getResources().getString(R.string.tab_planets));
+        adapter.add( new StarShipsFragment() , getResources().getString(R.string.tab_starships));
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(3);

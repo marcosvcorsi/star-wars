@@ -45,4 +45,8 @@ public class PageDTO<T> implements Serializable {
     public void setResults(List<T> results) {
         this.results = results;
     }
+
+    public boolean hasNext(){
+        return this.next != null && !this.next.isEmpty();
+    }
 }

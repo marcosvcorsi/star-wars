@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -36,7 +37,9 @@ public class PeopleFragment extends Fragment {
     private PeopleService peopleService;
     private List<People> peopleList = new ArrayList<>();
 
+    private PageDTO<People> pageDTO;
     private int currentPage = 1;
+    private boolean isLoading = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -45,6 +48,27 @@ public class PeopleFragment extends Fragment {
         this.listView = getView().findViewById(R.id.listViewPeople);
         this.adapter = new PeopleListAdapter(getContext(), peopleList);
         this.listView.setAdapter(this.adapter);
+
+        this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+                {
+                    if(!isLoading && pageDTO.hasNext() )
+                    {
+                        currentPage++;
+                        loadData();
+                    }
+                }
+            }
+        });
 
         this.spinner = getView().findViewById(R.id.progressBar);
 
@@ -59,25 +83,35 @@ public class PeopleFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_people, container, false);
     }
 
+    private void setLoading(boolean loading){
+        isLoading = loading;
+
+        if(isLoading){
+            spinner.setVisibility(View.VISIBLE);
+        } else {
+            spinner.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private void loadData() {
-        this.spinner.setVisibility(View.VISIBLE);
+        setLoading(true);
 
         Call<PageDTO<People>> call = peopleService.findAll(currentPage);
 
         call.enqueue(new Callback<PageDTO<People>>() {
             @Override
             public void onResponse(Call<PageDTO<People>> call, Response<PageDTO<People>> response) {
-                spinner.setVisibility(View.INVISIBLE);
+                setLoading(false);
 
-                peopleList.clear();
-                peopleList.addAll(response.body().getResults());
+                pageDTO = response.body();
+                peopleList.addAll(pageDTO.getResults());
 
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<PageDTO<People>> call, Throwable t) {
-                spinner.setVisibility(View.INVISIBLE);
+                setLoading(false);
                 t.printStackTrace();
             }
         });
