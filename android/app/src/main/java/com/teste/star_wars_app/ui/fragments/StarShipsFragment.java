@@ -76,9 +76,12 @@ public class StarShipsFragment extends FavoriteListFragment {
                 setLoading(false);
 
                 pageDTO = response.body();
-                starShipList.addAll(pageDTO.getResults());
 
-                adapter.notifyDataSetChanged();
+                if(pageDTO != null){
+                    starShipList.addAll(pageDTO.getResults());
+
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override

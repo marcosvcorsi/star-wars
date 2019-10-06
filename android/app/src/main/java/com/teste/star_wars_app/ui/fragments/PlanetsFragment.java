@@ -75,9 +75,12 @@ public class PlanetsFragment extends FavoriteListFragment {
                 setLoading(false);
 
                 pageDTO = response.body();
-                planetList.addAll(pageDTO.getResults());
 
-                adapter.notifyDataSetChanged();
+                if(pageDTO != null){
+                    planetList.addAll(pageDTO.getResults());
+
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override

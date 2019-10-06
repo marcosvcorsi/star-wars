@@ -76,9 +76,12 @@ public class PeopleFragment extends FavoriteListFragment {
                 setLoading(false);
 
                 pageDTO = response.body();
-                peopleList.addAll(pageDTO.getResults());
 
-                adapter.notifyDataSetChanged();
+                if(pageDTO != null){
+                    peopleList.addAll(pageDTO.getResults());
+
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
