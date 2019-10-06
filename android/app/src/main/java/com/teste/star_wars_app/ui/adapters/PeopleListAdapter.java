@@ -50,7 +50,7 @@ public class PeopleListAdapter extends FavoriteAdapter {
 
             final Favorite favorite = getFavorite(people.getUrl());
 
-            setFavoriteEvents(view, favorite);
+            setFavoriteEvents(view, favorite, people.getName());
         }
 
         return view;

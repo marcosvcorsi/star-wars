@@ -50,7 +50,7 @@ public class PlanetListAdapter extends FavoriteAdapter {
 
             final Favorite favorite = getFavorite(planet.getUrl());
 
-            setFavoriteEvents(view, favorite);
+            setFavoriteEvents(view, favorite, planet.getName());
         }
 
         return view;

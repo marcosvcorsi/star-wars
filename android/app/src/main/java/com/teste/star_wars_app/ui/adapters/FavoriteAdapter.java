@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teste.star_wars_app.R;
 import com.teste.star_wars_app.data.models.Favorite;
@@ -36,11 +37,14 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         this.favoriteList = this.favoriteRepository.findAll(favoriteType.ordinal());
     }
 
-    protected void onClickFav(Favorite favorite, ImageView imgView){
+    protected void onClickFav(Favorite favorite, ImageView imgView, String name){
         favorite.setStatus(!favorite.getStatus());
         setImageViewByStatus(imgView, favorite.getStatus());
 
         this.saveOrUpdate(favorite);
+
+        String info = favorite.getStatus() ? name + " added to favorites!" : name + " removed from favorites!";
+        showInfo(info);
     }
 
     protected void setImageViewByStatus(ImageView imageView, Boolean status){
@@ -59,7 +63,10 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         }
     }
 
-    protected void onClickSend(Favorite favorite, EditText editText, TextView txtComments){
+    protected void onClickSend(Favorite favorite,
+                               EditText editText,
+                               TextView txtComments,
+                               String name){
         String comment = editText.getText().toString();
         favorite.setComment(comment);
         txtComments.setText(comment);
@@ -67,6 +74,13 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         this.saveOrUpdate(favorite);
 
         editText.setText("");
+
+        showInfo("Comment added for " + name + "!");
+    }
+
+    private void showInfo(String message){
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void saveOrUpdate(Favorite favorite){
@@ -99,7 +113,7 @@ public abstract class FavoriteAdapter extends BaseAdapter {
         view.setOnClickListener((View v) -> hideOrShowDetails(tabDetails));
     }
 
-    protected void setFavoriteEvents(View view, final Favorite favorite){
+    protected void setFavoriteEvents(View view, final Favorite favorite, String name){
         TextView txtComments = view.findViewById(R.id.txtComments);
 
         if(favorite.getComment() != null && !favorite.getComment().isEmpty()){
@@ -110,12 +124,12 @@ public abstract class FavoriteAdapter extends BaseAdapter {
 
         final Button btnSend = view.findViewById(R.id.btnSend);
         btnSend.setOnClickListener((View v) -> {
-            onClickSend(favorite, editComments, txtComments);
+            onClickSend(favorite, editComments, txtComments, name);
         });
 
         final ImageView imgFav = view.findViewById(R.id.imgFav);
         imgFav.setOnClickListener((View v) -> {
-            onClickFav(favorite, imgFav);
+            onClickFav(favorite, imgFav, name);
         });
 
         setImageViewByStatus(imgFav, favorite.getStatus());

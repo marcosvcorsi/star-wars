@@ -50,7 +50,7 @@ public class StarShipListAdapter extends FavoriteAdapter {
 
             final Favorite favorite = getFavorite(starShip.getUrl());
 
-            setFavoriteEvents(view, favorite);
+            setFavoriteEvents(view, favorite, starShip.getName());
         }
 
         return view;

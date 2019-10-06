@@ -4,13 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.teste.star_wars_app.R;
 import com.teste.star_wars_app.api.SWApi;
@@ -27,53 +23,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PeopleFragment extends Fragment {
-
-    private ListView listView;
-    private ProgressBar spinner;
+public class PeopleFragment extends FavoriteListFragment {
 
     private PeopleListAdapter adapter;
-
     private PeopleService peopleService;
-    private List<People> peopleList = new ArrayList<>();
 
-    private PageDTO<People> pageDTO;
-    private int currentPage = 1;
-    private boolean isLoading = false;
+    private List<People> peopleList = new ArrayList<>();
+    private PageDTO<People> pageDTO = new PageDTO<>();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.listView = getView().findViewById(R.id.listViewPeople);
+        loadComponents(R.id.listViewPeople);
+
         this.adapter = new PeopleListAdapter(getContext(), peopleList);
         this.listView.setAdapter(this.adapter);
 
-        this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-
-            }
-
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-
-                if(firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0)
-                {
-                    if(!isLoading && pageDTO.hasNext() )
-                    {
-                        currentPage++;
-                        //loadData();
-                    }
-                }
-            }
-        });
-
-        this.spinner = getView().findViewById(R.id.progressBar);
-
         this.peopleService = (PeopleService) SWApi.createService(PeopleService.class);
-        this.loadData();
     }
 
     @Override
@@ -83,13 +50,19 @@ public class PeopleFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_people, container, false);
     }
 
-    private void setLoading(boolean loading){
-        isLoading = loading;
+    @Override
+    public void loadInitialData() {
+        if(peopleList.isEmpty()){
+            loadData();
+        }
+    }
 
-        if(isLoading){
-            spinner.setVisibility(View.VISIBLE);
-        } else {
-            spinner.setVisibility(View.INVISIBLE);
+    @Override
+    public void loadOnScroll() {
+        if(!isLoading && pageDTO.hasNext() )
+        {
+            currentPage++;
+            loadData();
         }
     }
 
@@ -97,7 +70,6 @@ public class PeopleFragment extends Fragment {
         setLoading(true);
 
         Call<PageDTO<People>> call = peopleService.findAll(currentPage);
-
         call.enqueue(new Callback<PageDTO<People>>() {
             @Override
             public void onResponse(Call<PageDTO<People>> call, Response<PageDTO<People>> response) {
@@ -112,6 +84,8 @@ public class PeopleFragment extends Fragment {
             @Override
             public void onFailure(Call<PageDTO<People>> call, Throwable t) {
                 setLoading(false);
+                showMessage("Something is wrong!");
+
                 t.printStackTrace();
             }
         });

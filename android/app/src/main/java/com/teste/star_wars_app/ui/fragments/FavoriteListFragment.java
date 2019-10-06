@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,7 +20,6 @@ public abstract class FavoriteListFragment extends Fragment {
 
     protected void loadComponents(int listViewId){
         this.listView = getView().findViewById(listViewId);
-
         this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -55,6 +55,11 @@ public abstract class FavoriteListFragment extends Fragment {
         super.onResume();
 
         loadInitialData();
+    }
+
+    protected void showMessage(String msg){
+        Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public abstract void loadInitialData();
