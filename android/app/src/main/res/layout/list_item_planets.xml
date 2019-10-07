@@ -221,7 +221,7 @@
 
 
                     <EditText
-                        android:layout_span="2"
+                        android:layout_span="3"
                         android:id="@+id/editComments"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
