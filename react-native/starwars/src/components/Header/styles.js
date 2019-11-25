@@ -12,6 +12,6 @@ export default StyleSheet.create({
   titleText: {
     color: '#FFF',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'SFDistantGalaxy',
   },
 });

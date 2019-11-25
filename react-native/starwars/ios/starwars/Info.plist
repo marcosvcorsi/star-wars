@@ -56,6 +56,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>star_wars.TTF</string>
+		<string>STARWARS.TTF</string>
+		<string>starwars.TTF</string>
+		<string>Star Jedi.ttf</string>
+		<string>SFDistantGalaxy.ttf</string>
 	</array>
 </dict>
 </plist>

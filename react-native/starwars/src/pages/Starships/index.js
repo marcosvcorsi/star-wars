@@ -1,34 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import React, {useState, useEffect} from 'react';
+import {View} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import styles from "../../styles";
-import ListItem from "../../components/ListItem";
+import styles from '../../styles';
+import ListItem from '../../components/ListItem';
 
 export default function Starships() {
-  const [result, setResult] = useState("");
+  const [starships, setStarships] = useState([]);
+  const [page, setPage] = useState(2);
 
   useEffect(() => {
-    async function loadData() {
-      const response = await api.get("/starships");
+    async function loadInitialData() {
+      const response = await api.get('/starships');
 
-      if (response.data) {
-        setResult(response.data);
+      if (response.data.results) {
+        setStarships(response.data.results);
       }
     }
 
-    loadData();
+    loadInitialData();
   }, []);
+
+  async function loadMore() {
+    const response = await api.get(`/starships/?page=${page}`);
+
+    if (response.data.results) {
+      const newList = starships.concat(response.data.results);
+
+      setStarships(newList);
+      setPage(page + 1);
+    }
+  }
 
   return (
     <View>
       <FlatList
         style={styles.list}
-        data={result.results}
-        keyExtractor={planet => `${planet.url}`}
-        renderItem={({ item }) => <ListItem item={item} />}
+        data={starships}
+        keyExtractor={st => `${st.url}`}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.3}
+        renderItem={({item}) => (
+          <ListItem
+            item={item}
+            disabledFields={[
+              'name',
+              'edited',
+              'url',
+              'created',
+              'films',
+              'pilots',
+            ]}
+          />
+        )}
       />
     </View>
   );
